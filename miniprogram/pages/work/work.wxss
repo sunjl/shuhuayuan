@@ -1,14 +1,13 @@
 .items {
   width: 100%;
+  background: #ddd;
 }
 
 .item {
   height: 350rpx;
   width: 100%;
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-left: none;
-  border-right: none;
+  margin-bottom: 15rpx;
   display: flex;
   flex-direction: column;
 }
@@ -53,7 +52,6 @@
   color: #999;
   margin-top: 50rpx;
   text-align: center;
-  vertical-align: middle;
 }
 
 .loadmore {
@@ -63,5 +61,4 @@
   color: #999;
   margin-top: 50rpx;
   text-align: center;
-  vertical-align: middle;
 }

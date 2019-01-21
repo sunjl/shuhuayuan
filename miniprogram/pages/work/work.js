@@ -1,14 +1,16 @@
 const app = getApp()
 const db = wx.cloud.database()
+const size = 10
 
 Page({
 
   data: {
     openid: '',
+    count: 0,
     items: [],
     isRefreshing: false,
-    hasMoreData: true,
-    isLoadingMoreData: false
+    hasMore: true,
+    isLoadingMore: false
   },
 
   onLoad: function(options) {
@@ -18,7 +20,7 @@ Page({
       })
     }
     this.setData({
-      pageNum: 0
+      page: 0
     })
     this.loadData()
   },
@@ -28,11 +30,11 @@ Page({
   },
 
   onPullDownRefresh: function() {
-    if (this.data.isRefreshing || this.data.isLoadingMoreData) {
+    if (this.data.isRefreshing || this.data.isLoadingMore) {
       return
     }
     this.setData({
-      pageNum: 0,
+      page: 0,
       isRefreshing: true
     })
     this.loadData()
@@ -40,32 +42,40 @@ Page({
   },
 
   onReachBottom: function() {
-    if (this.data.isRefreshing || this.data.isLoadingMoreData || !this.data.hasMoreData) {
+    if (this.data.isRefreshing || this.data.isLoadingMore || !this.data.hasMore) {
       return
     }
     this.setData({
-      pageNum: this.data.pageNum + 1,
-      isLoadingMoreData: true
+      page: this.data.page + 1,
+      isLoadingMore: true
     })
     this.loadMoreData()
   },
 
   loadData: function() {
-    const pageNum = this.data.pageNum;
-    db.collection('works').where({}).get({
-      success: res => {
-        this.setData({
-          items: res.data,
-          isRefreshing: false
-        })
+    const page = this.data.page;
+    wx.cloud.callFunction({
+      name: 'query',
+      data: {
+        collection: "works",
+        page: page,
+        size: size
       }
+    }).then(res => {
+      const result = res.result
+      this.setData({
+        count: result.count,
+        items: result.data,
+        hasMore: result.hasMore,
+        isRefreshing: false
+      })
     })
   },
 
   loadMoreData: function() {
-    const pageNum = this.data.pageNum;
+    const page = this.data.page;
     this.setData({
-      isLoadingMoreData: false
+      isLoadingMore: false
     })
     db.collection('works').where({}).get({
       success: res => {

@@ -1,20 +1,34 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 
-const db = cloud.database()
-const MAX_LIMIT = 10
-
 exports.main = async(event, context) => {
-  const countResult = await db.collection('works').count()
-  const total = countResult.total
-  const batchTimes = Math.ceil(total / MAX_LIMIT)
-  const tasks = []
-  for (let i = 0; i < batchTimes; i++) {
-    const promise = db.collection('works').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get()
-    tasks.push(promise)
+
+  const db = cloud.database()
+  const SIZE_LIMIT = 50
+
+  var {
+    collection,
+    page,
+    size,
+    filter
+  } = event
+
+  if (!page || page < 0) {
+    page = 0
   }
-  return (await Promise.all(tasks)).reduce((acc, cur) => ({
-    data: acc.data.concat(cur.data),
-    errMsg: acc.errMsg,
-  }))
+  if (!size || size > SIZE_LIMIT) {
+    size = SIZE_LIMIT
+  }
+  const offset = page * size
+
+  const countResult = await db.collection(collection).where(filter).count()
+  const count = countResult.total
+  const hasMore = page > Math.ceil(count / size)
+
+  return db.collection(collection).where(filter).skip(offset).limit(size).get().then(res => {
+    res.count = count
+    res.hasMore = hasMore
+    return res
+  })
+
 }
