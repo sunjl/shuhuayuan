@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="userinfo">
+    <image class="userinfo-avatar" src="{{avatarUrl}}"></image>
+    <view>
+      <button class="userinfo-nickname" wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录/注册</button>
+      <block wx:else>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      </block>
+    </view>
+  </view>
+
+  <view class="works" bindtap="queryMyWorks">
+    <text>我的作品</text>
+  </view>
+
+  <view class="uploader" wx:if="{{hasUserInfo}}">
+    <view class="uploader-text" bindtap="doUpload">
+      <text>上传作品</text>
+    </view>
+  </view>
+</view>
