@@ -1,6 +1,6 @@
 const app = getApp()
 const db = wx.cloud.database()
-const size = 10
+const size = 2
 
 Page({
 
@@ -77,15 +77,26 @@ Page({
     this.setData({
       isLoadingMore: false
     })
-    db.collection('works').where({}).get({
-      success: res => {
-        moreItems = res.data
-        if (moreItems.length != 0) {
-          this.setData({
-            items: this.data.items.concat(moreItems)
-          })
-        }
+    wx.cloud.callFunction({
+      name: 'query',
+      data: {
+        collection: "works",
+        page: page,
+        size: size
       }
+    }).then(res => {
+      const result = res.result
+      const moreItems = result.data
+      if (moreItems && moreItems.length > 0) {
+        this.setData({
+          items: this.data.items.concat(moreItems),
+        })
+      }
+      this.setData({
+        count: result.count,
+        hasMore: result.hasMore,
+        isRefreshing: false
+      })
     })
   }
 
