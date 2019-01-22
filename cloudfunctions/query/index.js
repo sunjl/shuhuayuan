@@ -25,12 +25,14 @@ exports.main = async(event, context) => {
   const count = countResult.total
   const hasMore = page < Math.ceil(count / size)
 
-  return db.collection(collection).where(filter).skip(offset).limit(size).get().then(res => {
-    res.page = page
-    res.size = size
-    res.count = count
-    res.hasMore = hasMore
-    return res
-  })
+  return db.collection(collection).where(filter)
+    .orderBy("createDate", "desc").skip(offset).limit(size).get()
+    .then(res => {
+      res.page = page
+      res.size = size
+      res.count = count
+      res.hasMore = hasMore
+      return res
+    })
 
 }

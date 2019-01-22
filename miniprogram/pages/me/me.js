@@ -58,7 +58,7 @@ Page({
       success: res => {
         app.globalData.items = res.data
         wx.navigateTo({
-          url: '../work/work'
+          url: '../workShow/workShow'
         })
       }
     })

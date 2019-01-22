@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/work/work",
     "pages/event/event",
     "pages/student/student",
     "pages/me/me"
@@ -11,12 +10,6 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "动态",
-        "iconPath": "./images/tabbar/index.png",
-        "selectedIconPath": "./images/tabbar/index-selected.png"
-      },
-      {
-        "pagePath": "pages/work/work",
         "text": "作品",
         "iconPath": "./images/tabbar/work.png",
         "selectedIconPath": "./images/tabbar/work-selected.png"
