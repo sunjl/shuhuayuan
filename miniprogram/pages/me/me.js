@@ -51,14 +51,14 @@ Page({
     })
   },
 
-  queryMyWorks: function(options) {
-    db.collection('works').where({
+  queryMyProducts: function(options) {
+    db.collection('products').where({
       _openid: app.globalData.openid,
     }).get({
       success: res => {
         app.globalData.items = res.data
         wx.navigateTo({
-          url: '../workShow/workShow'
+          url: '../productShow/productShow'
         })
       }
     })
@@ -83,7 +83,7 @@ Page({
           filePath,
           success: res => {
             app.globalData.fileID = res.fileID
-            db.collection('works').add({
+            db.collection('products').add({
               data: {
                 cloudPath: app.globalData.fileID,
                 nickName: app.globalData.userInfo.nickName,

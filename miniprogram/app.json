@@ -2,7 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/event/event",
-    "pages/student/student",
+    "pages/user/user",
     "pages/me/me"
   ],
   "tabBar": {
@@ -11,8 +11,8 @@
       {
         "pagePath": "pages/index/index",
         "text": "作品",
-        "iconPath": "./images/tabbar/work.png",
-        "selectedIconPath": "./images/tabbar/work-selected.png"
+        "iconPath": "./images/tabbar/product.png",
+        "selectedIconPath": "./images/tabbar/product-selected.png"
       },
       {
         "pagePath": "pages/event/event",
@@ -21,10 +21,10 @@
         "selectedIconPath": "./images/tabbar/event-selected.png"
       },
       {
-        "pagePath": "pages/student/student",
+        "pagePath": "pages/user/user",
         "text": "同学",
-        "iconPath": "./images/tabbar/student.png",
-        "selectedIconPath": "./images/tabbar/student-selected.png"
+        "iconPath": "./images/tabbar/user.png",
+        "selectedIconPath": "./images/tabbar/user-selected.png"
       },
       {
         "pagePath": "pages/me/me",

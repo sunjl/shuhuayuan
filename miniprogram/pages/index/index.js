@@ -57,7 +57,7 @@ Page({
     wx.cloud.callFunction({
       name: 'query',
       data: {
-        collection: "works",
+        collection: "products",
         page: page,
         size: size
       }
@@ -80,7 +80,7 @@ Page({
     wx.cloud.callFunction({
       name: 'query',
       data: {
-        collection: "works",
+        collection: "products",
         page: page,
         size: size
       }

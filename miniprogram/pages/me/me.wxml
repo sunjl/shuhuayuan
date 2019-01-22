@@ -9,7 +9,7 @@
     </view>
   </view>
 
-  <view class="works" bindtap="queryMyWorks">
+  <view class="products" bindtap="queryMyProducts">
     <text>我的作品</text>
   </view>
 
